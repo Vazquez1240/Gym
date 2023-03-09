@@ -4,6 +4,7 @@ from app.db.database import get_db
 from sqlalchemy.orm import Session
 from app.db import models
 from typing import List
+from app.repository import user
 
 router = APIRouter(
     prefix="/user",
@@ -18,21 +19,9 @@ def obtener_usuarios(db:Session = Depends(get_db)):
         return {"Vacio":"La base de datos esta vacia"}
     return data
 @router.post("/create_user")
-def crear_usuario(user:User,db:Session = Depends(get_db)):
-    useer = user.dict()
-    new_user = models.User(
-        name= useer["name"],
-        surname=useer["surname"],
-        username=useer["username"],
-        password=useer["password"],
-        number_phone=useer["number_phone"],
-        mail=useer["mail"]
-    )
-    db.add(new_user)
-    db.commit()
-    db.refresh(new_user)
-    return {"Exito":"Usuario creado con exito"}
-
+def crear_usuario(useer:User,db:Session = Depends(get_db)):
+    support = user.create_user(useer,db)
+    return support
 @router.post("/{user_id}",response_model=ShowUser)
 def obtener_usuario(user_id:int,db:Session = Depends(get_db)):
     useer = db.query(models.User).filter(models.User.id == user_id).first()
