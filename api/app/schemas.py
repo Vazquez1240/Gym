@@ -4,7 +4,6 @@ from datetime import datetime
 
 
 class User(BaseModel):
-    id:int
     name:str
     surname:str
     username:str
@@ -15,7 +14,6 @@ class User(BaseModel):
     creation:datetime = datetime.now()
 
 class Administrador(BaseModel):
-    id:int
     name:str
     surname:str
     username:str

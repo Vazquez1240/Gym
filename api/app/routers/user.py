@@ -19,15 +19,25 @@ def ruta1():
 @router.get("/")
 def obtener_usuarios(db:Session = Depends(get_db)):
     data = db.query(models.User).all()
-    print(data)
+    if(len(data) == 0):
+        return {"Vacio":"La base de datos esta vacia"}
     return usuarios
-
-
 @router.post("/")
-def crear_usuario(user:User):
-    usuario = user.dict()
-    usuarios.append(usuario)
-    print(usuarios)
+def crear_usuario(user:User,db:Session = Depends(get_db)):
+    useer = user.dict()
+    new_user = models.User(
+        name= useer["name"],
+        surname=useer["surname"],
+        username=useer["username"],
+        password=useer["password"],
+        number_phone=useer["number_phone"],
+        mail=useer["mail"],
+        state=useer["state"],
+        range=useer["range"]
+    )
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
     return {"Exito":"Usuario creado con exito"}
 
 @router.post("/{user_id}")
