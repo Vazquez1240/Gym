@@ -22,8 +22,6 @@ class Administrador(BaseModel):
     rango:str
     creation: datetime = datetime.now()
 
-class UserId(BaseModel):
-    id:int
 
 class ShowUser(BaseModel):
     name: str
@@ -32,3 +30,11 @@ class ShowUser(BaseModel):
     mail: str
     class Config():
         orm_mode = True
+
+class UpdateUSer(BaseModel):
+    name:str = None
+    surname:str = None
+    username:str = None
+    password:str = None
+    number_phone:str = None
+    mail:str = None
