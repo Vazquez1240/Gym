@@ -50,7 +50,7 @@ class Administrador(Base):
     username = Column(String, nullable=False, unique=True)
     password = Column(String, nullable=False)
     number_phone = Column(Integer, nullable=False)
-    mail = Column(String, nullable=False)
+    mail = Column(String, nullable=False, unique=True)
     state = Column(Boolean, default=False)
     range = Column(String,nullable=False)
     creation = Column(DateTime, default=datetime.now, onupdate=datetime.now)
