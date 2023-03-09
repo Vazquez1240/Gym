@@ -30,18 +30,6 @@ class User(Base):
     creation = Column(DateTime,default=datetime.now,onupdate=datetime.now)
 
 
-'''class Administrador(BaseModel):
-    id:int
-    name:str
-    surname:str
-    username:str
-    password:str
-    number_phone:int
-    mail:str
-    state:bool
-    range:str
-    creation: datetime = datetime.now()'''
-
 class Administrador(Base):
     __tablename__ = "administrador"
     id = Column(Integer,primary_key=True,autoincrement=True)
@@ -51,14 +39,14 @@ class Administrador(Base):
     password = Column(String, nullable=False)
     number_phone = Column(Integer, nullable=False)
     mail = Column(String, nullable=False, unique=True)
-    state = Column(Boolean, default=False)
-    range = Column(String,nullable=False)
+    state = Column(Boolean, default=False,nullable=False)
+    rango = Column(String,nullable=False)
     creation = Column(DateTime, default=datetime.now, onupdate=datetime.now)
-    sale = relationship("Sale",backref="users",cascade="delete,merge")
+    sale = relationship("Sale",backref="administrador",cascade="delete,merge")
 
 class Sale(Base):
     __tablename__ = "sales"
     id = Column(Integer,primary_key=True,autoincrement=True)
-    username_id = Column(Integer,ForeignKey("users.id",ondelete="CASCADE"))
+    username_id = Column(Integer,ForeignKey("administrador.id",ondelete="CASCADE"))
     venta = Column(Integer)
     ventas_productos = Column(Integer)

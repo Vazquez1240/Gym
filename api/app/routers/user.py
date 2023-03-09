@@ -11,18 +11,13 @@ router = APIRouter(
 
 usuarios = []
 
-@router.get("/ruta1")
-def ruta1():
-
-    return {"Bienvenido":"Bienvenido a mi primer api"}
-
 @router.get("/")
 def obtener_usuarios(db:Session = Depends(get_db)):
     data = db.query(models.User).all()
     if(len(data) == 0):
         return {"Vacio":"La base de datos esta vacia"}
     return usuarios
-@router.post("/")
+@router.post("/create_user")
 def crear_usuario(user:User,db:Session = Depends(get_db)):
     useer = user.dict()
     new_user = models.User(
@@ -31,9 +26,7 @@ def crear_usuario(user:User,db:Session = Depends(get_db)):
         username=useer["username"],
         password=useer["password"],
         number_phone=useer["number_phone"],
-        mail=useer["mail"],
-        state=useer["state"],
-        range=useer["range"]
+        mail=useer["mail"]
     )
     db.add(new_user)
     db.commit()
