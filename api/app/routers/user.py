@@ -1,5 +1,5 @@
 from fastapi import APIRouter,Depends
-from app.schemas import User,UserId
+from app.schemas import User,UserId,ShowUser
 from app.db.database import get_db
 from sqlalchemy.orm import Session
 from app.db import models
@@ -33,19 +33,13 @@ def crear_usuario(user:User,db:Session = Depends(get_db)):
     db.refresh(new_user)
     return {"Exito":"Usuario creado con exito"}
 
-@router.post("/{user_id}")
-def obtener_usuario(user_id:int):
-    for user in usuarios:
-        if(user["id"] == user_id):
-            return {"Exito":f"Usuario encontrado{user}"}
-    return {"Error":"Usuario no encontrado"}
+@router.post("/{user_id}",response_model=ShowUser)
+def obtener_usuario(user_id:int,db:Session = Depends(get_db)):
+    useer = db.query(models.User).filter(models.User.id == user_id).first()
+    if(not useer):
+        return {"Error":"Usuario no encontrado"}
+    return useer
 
-@router.post("/")
-def obtener_usuario2(user_id:UserId):
-    for user in usuarios:
-        if(user["id"] == user_id.id):
-            return {"Exito":f"Usuario encontrado{user}"}
-    return {"Error":"Usuario no encontrado"}
 
 @router.delete("/{user_id}")
 def delete_user(user_id:int):
