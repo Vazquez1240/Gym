@@ -6,8 +6,6 @@ from fastapi import HTTPException,status
 
 def get_users(db:Session):
     data = db.query(models.User).all()
-    if(len(data) == 0):
-        return {"Error":"The database is empty"}
     return data
 
 def create_user(user,db:Session):

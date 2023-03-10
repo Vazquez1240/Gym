@@ -12,7 +12,7 @@ router = APIRouter(
 )
 
 
-@router.get("/",response_model=List[ShowUsers],status_code=status.HTTP_200_OK)
+@router.get("/",response_model=List[ShowUser],status_code=status.HTTP_200_OK)
 def obtener_usuarios(db:Session = Depends(get_db)):
     support = user.get_users(db)
 
