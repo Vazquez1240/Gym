@@ -31,6 +31,14 @@ class ShowUser(BaseModel):
     class Config():
         orm_mode = True
 
+class ShowUsers(BaseModel):
+    name: str = None
+    surname: str = None
+    username: str = None
+    mail: str = None
+    class Config():
+        orm_mode = True
+
 class UpdateUSer(BaseModel):
     name:str = None
     surname:str = None

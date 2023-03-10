@@ -1,9 +1,10 @@
-from fastapi import APIRouter,Depends
-from app.schemas import User,ShowUser,UpdateUSer
+from fastapi import APIRouter,Depends, status
+from app.schemas import User,ShowUser,UpdateUSer, ShowUsers
 from app.db.database import get_db
 from sqlalchemy.orm import Session
 from typing import List
 from app.repository import user
+
 
 router = APIRouter(
     prefix="/user",
@@ -11,12 +12,12 @@ router = APIRouter(
 )
 
 
-@router.get("/",response_model=List[ShowUser])
+@router.get("/",response_model=List[ShowUsers],status_code=status.HTTP_200_OK)
 def obtener_usuarios(db:Session = Depends(get_db)):
     support = user.get_users(db)
 
     return support
-@router.post("/create_user")
+@router.post("/create_user",status_code=status.HTTP_201_CREATED)
 def crear_usuario(useer:User,db:Session = Depends(get_db)):
     support = user.create_user(useer,db)
     return support
