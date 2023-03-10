@@ -3,7 +3,6 @@ from app.db import models
 from fastapi import HTTPException,status
 
 
-
 def get_users(db:Session):
     data = db.query(models.User).all()
     return data

@@ -1,5 +1,5 @@
 from fastapi import APIRouter,Depends, status
-from app.schemas import User,ShowUser,UpdateUSer, ShowUsers
+from app.schemas import User,ShowUser,UpdateUSer
 from app.db.database import get_db
 from sqlalchemy.orm import Session
 from typing import List
@@ -12,7 +12,7 @@ router = APIRouter(
 )
 
 
-@router.get("/",response_model=List[ShowUser],status_code=status.HTTP_200_OK)
+@router.get("/obtener_usuarios",response_model=List[ShowUser],status_code=status.HTTP_200_OK)
 def obtener_usuarios(db:Session = Depends(get_db)):
     support = user.get_users(db)
 
