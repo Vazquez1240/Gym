@@ -23,7 +23,7 @@ def new_user():
                 "mail":mail}
         response = requests.post(API_HOST+'/create_user',json=user)
         if(response.status_code == 201):
-            return "usuario creado correctamente"
+            return redirect(url_for('home'))
         else:
             return "error"
     elif(request.method == "GET"):
