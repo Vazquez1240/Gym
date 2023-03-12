@@ -47,3 +47,10 @@ class ShowAdmin(BaseModel):
     mail:str
     class Config():
         orm_mode = True
+
+
+class UpdateAdmin(BaseModel):
+    username:str = None
+    password: str = None
+    number_phone:str = None
+    mail:str = None

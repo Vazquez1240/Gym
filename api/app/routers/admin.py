@@ -3,7 +3,7 @@ from app.db.database import get_db
 from sqlalchemy.orm import Session
 from typing import List
 from app.repository import user
-from app.schemas import Administrador,ShowAdmin
+from app.schemas import Administrador,ShowAdmin,UpdateAdmin
 from app.repository import admin
 
 
@@ -31,4 +31,9 @@ def obtener_admin(user_admin:str,db:Session = Depends(get_db)):
 @router.delete("/{username_admin}")
 def delete_user(username_admin:str,db:Session = Depends(get_db)):
     support = admin.delete_admin(username_admin,db)
+    return support
+
+@router.patch("/{user_admin}")
+def update_admin(user_admin:str,updateAdmin:UpdateAdmin,db:Session = Depends(get_db)):
+    support = admin.update_admin(user_admin,db,updateAdmin)
     return support

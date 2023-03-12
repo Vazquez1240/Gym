@@ -46,3 +46,12 @@ def delete_admin(user_admin, db:Session):
     admiin.delete(synchronize_session=False)
     db.commit()
     return {"Success":"Usuario eliminado correctamente"}
+
+
+def update_admin(user_admin,db:Session,updateAdmin):
+    admiin = db.query(models.Administrador).filter(models.Administrador.username == user_admin)
+    if(not admiin.first()):
+        return {"Error":f"The user whit username {user_admin} not exist"}
+    admiin.update(updateAdmin.dict(exclude_unset=True))
+    db.commit()
+    return {"Success":"User actualizado correctamente"}
