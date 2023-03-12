@@ -45,3 +45,5 @@ class ShowAdmin(BaseModel):
     username:str
     number_phone:str
     mail:str
+    class Config():
+        orm_mode = True

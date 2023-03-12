@@ -28,3 +28,21 @@ def create_admin(user_admin,db:Session):
             detail="username or mail already in use"
         )
     return {"Success":"Admin create with exit!"}
+
+def get_admin(user_admin, db:Session):
+    admiin = db.query(models.Administrador).filter(models.Administrador.username == user_admin).first()
+    if(not admiin):
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"User with username does not exist: {user_admin}"
+        )
+    return admiin
+
+
+def delete_admin(user_admin, db:Session):
+    admiin = db.query(models.Administrador).filter(models.Administrador.username == user_admin)
+    if(not admiin.first()):
+        return {"Error":f"El administrador con el username {user_admin} no existe"}
+    admiin.delete(synchronize_session=False)
+    db.commit()
+    return {"Success":"Usuario eliminado correctamente"}
