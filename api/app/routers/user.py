@@ -21,6 +21,7 @@ def obtener_usuarios(db:Session = Depends(get_db)):
 def crear_usuario(useer:User,db:Session = Depends(get_db)):
     support = user.create_user(useer,db)
     return support
+
 @router.get("/{user_id}",response_model=ShowUser)
 def obtener_usuario(user_id:int,db:Session = Depends(get_db)):
     support = user.get_user(user_id,db)

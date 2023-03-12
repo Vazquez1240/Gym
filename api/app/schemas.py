@@ -38,3 +38,10 @@ class UpdateUSer(BaseModel):
     password:str = None
     number_phone:str = None
     mail:str = None
+
+class ShowAdmin(BaseModel):
+    name:str
+    surname:str
+    username:str
+    number_phone:str
+    mail:str

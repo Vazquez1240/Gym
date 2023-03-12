@@ -24,9 +24,9 @@ def create_user(user,db:Session):
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
-            detail="Usuario o correo ya en uso"
+            detail="User or mail already in use"
         )
-    return {"Exito":"Usuario creado con exito"}
+    return {"Success":"User create whit exit!"}
 
 
 def get_user(user_id,db:Session):
