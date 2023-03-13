@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, Union
 from datetime import datetime
 
 
@@ -54,3 +54,22 @@ class UpdateAdmin(BaseModel):
     password: str = None
     number_phone:str = None
     mail:str = None
+
+
+class Login(BaseModel):
+    username:str
+    password:str
+
+
+
+'''Clases para la autentificacion
+            |
+            |
+            v'''
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    username: Union[str, None] = None

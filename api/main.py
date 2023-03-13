@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 import uvicorn
-from app.routers import user,admin
+from app.routers import user,admin,auth
 from app.db.database import Base,engine
 
 def create_tables():
@@ -10,6 +10,7 @@ app = FastAPI()
 create_tables()
 app.include_router(user.router)
 app.include_router(admin.router)
+app.include_router(auth.router)
 
 
 
